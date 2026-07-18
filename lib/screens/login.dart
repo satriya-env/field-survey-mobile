@@ -9,6 +9,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool _hidepass = true;
+  String _nama = "";
+  String _pass = "";
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,9 @@ class _LoginState extends State<Login> {
                       child: Column(
                         children: [
                           TextField(
+                            onChanged: (value) {
+                              _nama = value;
+                            },
                             decoration: InputDecoration(
                               hintText: 'Nama',
                               border: OutlineInputBorder(
@@ -63,6 +68,9 @@ class _LoginState extends State<Login> {
                           ),
                           const SizedBox(height: 12),
                           TextField(
+                            onChanged: (value) {
+                              _pass = value;
+                            },
                             obscureText: _hidepass,
                             decoration: InputDecoration(
                               hintText: 'Password',
