@@ -23,6 +23,10 @@ class _LoginState extends State<Login> {
           ),
           decoration: const BoxDecoration(
             color: Colors.blue,
+            image: DecorationImage(
+              image: NetworkImage('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
+              fit: BoxFit.cover,
+            ),
           ),
           child: Center(
             child: Column(
@@ -33,23 +37,24 @@ class _LoginState extends State<Login> {
                 const Text(
                   'LOGIN',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 1.5,
+                    // color: Colors.white,
+                    letterSpacing: 5,
                   ),
                 ),
                 const SizedBox(height: 5),
                 const Text(
                   'Masuk untuk melanjutkan',
                   style: TextStyle(
-                    color: Color.fromARGB(179, 255, 255, 255),
+                    color: Color.fromARGB(179, 51, 51, 51),
                   ),
                 ),
                 const SizedBox(height: 12),
                 SizedBox(
                   width: 320,
                   child: Card(
+                    color: const Color.fromARGB(136, 255, 255, 255),
                     child: Padding(
                       // PERBAIKAN 1: Diganti jadi EdgeInsets.symmetric
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24), 

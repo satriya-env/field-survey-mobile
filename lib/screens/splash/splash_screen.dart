@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,4 +39,13 @@ class SplashScreen extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void initState(){
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      context.go('/login');
+    });
+  }
+
 }
