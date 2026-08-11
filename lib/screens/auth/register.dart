@@ -32,10 +32,6 @@ class _RegisterState extends State<Register> {
           ),
           decoration: const BoxDecoration(
             color: Color.fromARGB(255, 56, 56, 56),
-            image: DecorationImage(
-              image: AssetImage('../assets/background.jpg'),
-              fit: BoxFit.cover,
-            ),
           ),
           child: Center(
             child: Column(

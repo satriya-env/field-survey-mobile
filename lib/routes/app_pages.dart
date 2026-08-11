@@ -1,4 +1,6 @@
 // import 'package:flutter/material.dart';
+import 'package:azhmobile/screens/auth/register.dart';
+import 'package:azhmobile/screens/dashboard/home.dart';
 import 'package:go_router/go_router.dart';
 import '../screens/splash/splash_screen.dart';
 import '../screens/auth/login.dart';
@@ -13,8 +15,16 @@ class AppPages{
         builder: (context, route) => const SplashScreen(),
       ),
       GoRoute(
-        path: '/login',
+        path: AppRoutes.login,
         builder: (context, route) => const Login(),
+      ),
+      GoRoute(
+        path: AppRoutes.register,
+        builder: (context, route) => const Register(),
+      ),
+      GoRoute(
+        path: AppRoutes.home,
+        builder: (context, route) => const Home(),
       ),
     ],
   );

@@ -43,9 +43,9 @@ class _LoginState extends State<Login> {
             minHeight: MediaQuery.of(context).size.height,
           ),
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: const Color.fromARGB(255, 255, 255, 255),
             image: DecorationImage(
-              image: AssetImage('../../../assets/background.jpg'),
+              image: AssetImage('../../../assets/background.png'),
               fit: BoxFit.cover,
             ),
           ),
@@ -75,16 +75,23 @@ class _LoginState extends State<Login> {
                Text(
                   'Masuk untuk melanjutkan',
                   style: TextStyle(
-                    color: Color.fromARGB(179, 255, 255, 255),
+                    color: Color.fromARGB(255, 226, 226, 226),
                     fontWeight: FontWeight.w400,
                     letterSpacing: 0.5,
+                    shadows: [
+                      Shadow(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        offset: Offset(1, 1),
+                        blurRadius: 5,
+                      ),
+                    ],
                   ),
                 ),
                SizedBox(height: 12),
                 SizedBox(
                   width: 320,
                   child: Card(
-                    color: Color.fromARGB(136, 255, 255, 255),
+                    color: Color.fromARGB(162, 226, 226, 226),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 20,
