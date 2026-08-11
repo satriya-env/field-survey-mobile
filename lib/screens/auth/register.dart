@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   bool _hidepass = true;
-  String _nama = "";
-  String _pass = "";
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final formkey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +31,9 @@ class _LoginState extends State<Login> {
             minHeight: MediaQuery.of(context).size.height,
           ),
           decoration: const BoxDecoration(
-            color: Colors.blue,
+            color: Color.fromARGB(255, 56, 56, 56),
             image: DecorationImage(
-              image: NetworkImage('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'),
+              image: AssetImage('../assets/background.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -35,19 +44,24 @@ class _LoginState extends State<Login> {
               children: [
                 const SizedBox(height: 60), // Memberi sedikit jarak dari atas layar
                 const Text(
-                  'LOGIN',
+                  'DAFTAR',
                   style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    // color: Colors.white,
+                    color: Colors.white,
                     letterSpacing: 5,
                   ),
                 ),
                 const SizedBox(height: 5),
                 const Text(
-                  'Masuk untuk melanjutkan',
+                  'Buat akun untuk melanjutkan',
                   style: TextStyle(
-                    color: Color.fromARGB(179, 51, 51, 51),
+                    color: Color.fromARGB(179, 231, 231, 231),
+                    shadows: [Shadow(
+                      color: Color.fromARGB(255, 53, 53, 53),
+                      offset: Offset(2, 2),
+                      blurRadius: 4,
+                    )]
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -56,29 +70,25 @@ class _LoginState extends State<Login> {
                   child: Card(
                     color: const Color.fromARGB(136, 255, 255, 255),
                     child: Padding(
-                      // PERBAIKAN 1: Diganti jadi EdgeInsets.symmetric
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24), 
                       child: Column(
                         children: [
-                          TextField(
-                            onChanged: (value) {
-                              _nama = value;
-                            },
+                          TextFormField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
-                              hintText: 'Nama',
+                              labelText: 'Email',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
                           ),
                           const SizedBox(height: 12),
-                          TextField(
-                            onChanged: (value) {
-                              _pass = value;
-                            },
+                          TextFormField(
+                            controller: passwordController,
                             obscureText: _hidepass,
                             decoration: InputDecoration(
-                              hintText: 'Password',
+                              labelText: 'Password',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -100,11 +110,13 @@ class _LoginState extends State<Login> {
                             height: 36,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
+                                backgroundColor: const Color.fromARGB(255, 77, 77, 77),
                                 foregroundColor: Colors.white,
                               ),
-                              onPressed: () {},
-                              child: const Text('Masuk'),
+                              onPressed: () {
+                                context.go('/home'); // Navigasi ke halaman dashboard
+                              },
+                              child: const Text('Buat Akun'),
                             ),
                           ),
                         ],
