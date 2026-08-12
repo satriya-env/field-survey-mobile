@@ -10,7 +10,39 @@ class Profil extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              CircleAvatar()
+              CircleAvatar(
+                radius: 50,
+                child: Icon(Icons.person, size: 50,),
+              ),
+              Text('data'),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text('Nama'),
+                  subtitle: Text('data'),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.email),
+                  title: Text('Email'),
+                  subtitle: Text('data'),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.call),
+                  title: Text('Nomor Whatsapp'),
+                  subtitle: Text('data'),
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.man),
+                  title: Text('Gender'),
+                  subtitle: Text('data'),
+                ),
+              ),
             ],
           ),
         ),

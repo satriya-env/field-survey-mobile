@@ -1,4 +1,5 @@
 import 'package:azhmobile/screens/dashboard/page/dashboard.dart';
+import 'package:azhmobile/screens/dashboard/page/profil.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _pages = const [
     Dashboard(),
     Center(child: Text('Survey Page')),
-    Center(child: Text('Profil Page')),
+    Profil()
   ];
 
   void _onItemTapped(int index) {
