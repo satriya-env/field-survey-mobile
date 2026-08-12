@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,11 +14,11 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool _hidepass = true;
-  bool _isFormValid = false; // 1. Tambahan status untuk mengontrol tombol masuk
+  bool isLoading = false;
   
+  final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final formkey = GlobalKey<FormState>(); // 2. Ditambahkan <FormState> agar bisa validasi
 
   @override
   void dispose() {
@@ -24,13 +27,78 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
-  // 3. Fungsi untuk mengecek validasi setiap kali user mengetik
-  void _validateForm() {
-    final isValid = formkey.currentState?.validate() ?? false;
-    if (isValid != _isFormValid) {
-      setState(() {
-        _isFormValid = isValid;
-      });
+  Future <void> login() async{
+    if(!_formkey.currentState!.validate()){
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try{
+      final response = await http.post(
+        Uri.parse('https://sijala.biz.id/api/v1/login'),
+
+        headers: {
+          'Accept' : 'application/json',
+          'Content-Type' : 'application/json',
+        },
+        body: jsonEncode({
+            'email' : emailController.text.trim(),
+            'password' : passwordController.text
+        })
+      );
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200){
+        final token = data['data']['token'];
+        if (token == null){
+          throw Exception('Token tidak ditemukan');  
+        }
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', token.toString());
+
+        if(data['data']['user'] != null){
+          await prefs.setString('user', jsonEncode(data['user']));
+        }
+
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Login Berhasil'),
+            backgroundColor: Color.fromARGB(255, 56, 56, 56),
+          )
+        );
+
+        context.go('/home');
+      }
+      else{
+        final message =
+          data['message']??'Email atau Password salah cuy';
+        throw Exception(message);
+      }
+    }
+    catch(e){
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.toString().replaceFirst('Exception: ', '')
+          ),
+          backgroundColor: Color.fromARGB(255, 56, 56, 56),
+        ),
+      );
+    }
+    finally{
+      if (mounted){
+        setState(() {
+          isLoading = false;
+        });
+      }
     }
   }
 
@@ -97,10 +165,8 @@ class _LoginState extends State<Login> {
                         horizontal: 20,
                         vertical: 24,
                       ),
-                      // 5. Dibungkus dengan Widget Form
                       child: Form(
-                        key: formkey,
-                        onChanged: _validateForm, // Cek form saat diketik
+                        key: _formkey, // Cek form saat diketik
                         child: Column(
                           children: [
                             TextFormField(
@@ -159,12 +225,9 @@ class _LoginState extends State<Login> {
                                   backgroundColor: const Color.fromARGB(255, 83, 83, 83),
                                   foregroundColor: Colors.white,
                                 ),
-                                // 6. Tombol hanya aktif (bisa diklik) jika _isFormValid = true
-                                onPressed: _isFormValid
-                                    ? () {
-                                        context.go('/home');
-                                      }
-                                    : null,
+                                onPressed: isLoading
+                                    ? null
+                                    : login,
                                 child: Text('Masuk'),
                               ),
                             ),
