@@ -224,7 +224,7 @@ class _RegisterState extends State<Register> {
 
                             // 4. Jenis Kelamin
                             DropdownButtonFormField<String>(
-                              value: gender,
+                              initialValue: gender,
                               decoration: InputDecoration(
                                 labelText: 'Jenis Kelamin',
                                 border: OutlineInputBorder(

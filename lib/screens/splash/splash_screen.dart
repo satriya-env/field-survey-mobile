@@ -16,18 +16,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.assignment,
-              size: 100,
-              color: Colors.blue,
-            ),
+            Icon(Icons.assignment, size: 100, color: Colors.blue),
             SizedBox(height: 20),
             Text(
               'Field Survey',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             Text(
@@ -35,17 +28,17 @@ class _SplashScreenState extends State<SplashScreen> {
               style: TextStyle(fontSize: 16),
             ),
           ],
-        )
+        ),
       ),
     );
   }
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
+      if (!mounted) return;
       context.go('/login');
     });
   }
-
 }

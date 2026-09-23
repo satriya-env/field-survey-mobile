@@ -1,5 +1,6 @@
 import 'package:azhmobile/screens/dashboard/page/dashboard.dart';
 import 'package:azhmobile/screens/dashboard/page/profil.dart';
+import 'package:azhmobile/screens/dashboard/page/survey.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomeState extends State<Home> {
   // Daftar tampilan halaman untuk tiap-tiap tab
   final List<Widget> _pages = const [
     Dashboard(),
-    Center(child: Text('Survey Page')),
+    SurveyPage(),
     Profil()
   ];
 

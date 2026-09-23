@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
         await prefs.setString('token', token.toString());
 
         if(data['data']['user'] != null){
-          await prefs.setString('user', jsonEncode(data['user']));
+          await prefs.setString('user', jsonEncode(data['data']['user']));
         }
 
         if (!mounted) return;
